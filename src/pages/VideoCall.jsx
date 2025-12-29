@@ -3,7 +3,7 @@ import { useWebRTC } from "../hooks/useWebRTC";
 import { useCallTimer } from "../hooks/useCallTimer";
 import VideoPlayer from "../components/VideoPlayer";
 import Controls from "../components/Controls";
-import ChatPanel from "../components/ChatPanel";
+import ChatPanel from "../pages/ChatPanel";
 import "../styles/call.css";
 
 export default function VideoCall() {
