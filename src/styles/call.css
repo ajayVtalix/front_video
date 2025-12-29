@@ -1,108 +1,146 @@
-/* Layout */
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-}
-
-.video-container {
-  display: flex;
-  gap: 10px;
-  padding: 10px;
-}
-
-.video-wrapper {
+/* ===============================
+   BASE CONTAINER
+================================ */
+.call-container {
   position: relative;
-  width: 50%;
-  background: black;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  overflow: hidden;
 }
 
-video {
+/* ===============================
+   VIDEOS
+================================ */
+.remote-video {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
 }
 
-.video-label {
+.local-video {
   position: absolute;
-  bottom: 5px;
-  left: 5px;
-  background: rgba(0,0,0,0.6);
-  color: white;
-  padding: 2px 6px;
-  font-size: 12px;
+  width: 180px;
+  height: 120px;
+  bottom: 16px;
+  right: 16px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 2px solid #fff;
+  background: #000;
+  z-index: 10;
 }
 
-/* Controls */
+/* ===============================
+   CONTROLS
+================================ */
 .controls {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  justify-content: center;
-  gap: 10px;
-  padding: 10px;
+  gap: 12px;
+  z-index: 20;
 }
 
 .controls button {
-  padding: 8px 12px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.controls button:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* ===============================
+   CHAT
+================================ */
+.chat {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  width: 260px;
+  height: 320px;
+  background: rgba(0,0,0,0.75);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  z-index: 30;
+}
+
+.chat div {
+  color: #fff;
+  font-size: 13px;
+  padding: 4px 8px;
+}
+
+.chat input {
+  border: none;
+  padding: 8px;
+  outline: none;
+}
+
+.chat button {
+  border: none;
+  padding: 8px;
+  background: #2563eb;
+  color: #fff;
   cursor: pointer;
 }
 
-.controls .hang-up {
-  background: red;
-  color: white;
+/* ===============================
+   ROLE-BASED LAYOUT
+================================ */
+
+/* DOCTOR VIEW (DESKTOP) */
+.call-container.doctor .remote-video {
+  z-index: 1;
 }
 
-/* Chat */
-.chat-section {
-  position: fixed;
-  right: 0;
-  top: 0;
-  width: 300px;
-  height: 100%;
-  background: #f1f1f1;
-  display: none;
-  flex-direction: column;
+/* PATIENT VIEW (MOBILE-FIRST) */
+.call-container.patient .remote-video {
+  z-index: 1;
 }
 
-.chat-section.active {
-  display: flex;
-}
+/* ===============================
+   MOBILE RESPONSIVE
+================================ */
+@media (max-width: 768px) {
 
-.chat-header {
-  padding: 10px;
-  background: #333;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-}
+  .local-video {
+    width: 120px;
+    height: 90px;
+    bottom: 12px;
+    right: 12px;
+  }
 
-.chat-messages {
-  flex: 1;
-  padding: 10px;
-  overflow-y: auto;
-}
+  .controls {
+    bottom: 80px;
+  }
 
-.chat-message {
-  margin-bottom: 8px;
+  .chat {
+    width: 90%;
+    height: 40%;
+    right: 5%;
+    top: auto;
+    bottom: 140px;
+  }
 }
-
-.chat-message.sent {
-  text-align: right;
-}
-
-.chat-message.received {
-  text-align: left;
-}
-
-.timestamp {
-  font-size: 10px;
-  color: #888;
-}
-
-/* Chat input */
-.chat-input-container {
-  display: flex;
-  gap: 5px;
-  padding: 10px;
-}
-
-.chat-input-container input {
-  flex: 1;
+.call-timer {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 12px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border-radius: 6px;
+  font-size: 14px;
+  z-index: 25;
 }
