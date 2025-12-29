@@ -1,26 +1,21 @@
 export default function Controls({
-  onToggleAudio,
-  onToggleVideo,
-  onHangUp,
-  onToggleChat,
-  audioEnabled,
-  videoEnabled
+  audioOn,
+  videoOn,
+  toggleAudio,
+  toggleVideo,
+  endCall
 }) {
   return (
     <div className="controls">
-      <button onClick={onToggleAudio}>
-        {audioEnabled ? "🎤 Mute" : "🔇 Unmute"}
+      <button onClick={toggleAudio}>
+        {audioOn ? "Mute" : "Unmute"}
       </button>
-
-      <button onClick={onToggleVideo}>
-        {videoEnabled ? "📹 Stop Video" : "🚫 Start Video"}
+      <button onClick={toggleVideo}>
+        {videoOn ? "Stop Video" : "Start Video"}
       </button>
-
-      <button className="hang-up" onClick={onHangUp}>
-        📞 Hang Up
+      <button className="end" onClick={endCall}>
+        End Call
       </button>
-
-      <button onClick={onToggleChat}>💬 Chat</button>
     </div>
   );
 }
