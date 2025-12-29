@@ -63,30 +63,35 @@ export function useWebRTC(roomId) {
       socket.emit("join-room", { roomId });
     });
 
-    socket.on("ready", async (remoteId) => {
-      if (isMakingOfferRef.current) return;
+socket.on("ready", async (remoteId) => {
+  if (peerRef.current) return;
 
-      createPeer(remoteId);
-      isMakingOfferRef.current = true;
+  createPeer(remoteId);
 
-      const offer = await peerRef.current.createOffer();
-      await peerRef.current.setLocalDescription(offer);
-      socket.emit("offer", { offer, to: remoteId });
-    });
+  // deterministic offer creation
+  const offer = await peerRef.current.createOffer();
+  await peerRef.current.setLocalDescription(offer);
 
-    socket.on("offer", async ({ offer, from }) => {
-      createPeer(from);
-      await peerRef.current.setRemoteDescription(offer);
-      const answer = await peerRef.current.createAnswer();
-      await peerRef.current.setLocalDescription(answer);
-      socket.emit("answer", { answer, to: from });
-    });
+  socket.emit("offer", { offer, to: remoteId });
+});
 
-    socket.on("answer", async ({ answer }) => {
-      if (peerRef.current?.signalingState !== "stable") {
-        await peerRef.current.setRemoteDescription(answer);
-      }
-    });
+
+socket.on("offer", async ({ offer, from }) => {
+  createPeer(from);
+  await peerRef.current.setRemoteDescription(offer);
+
+  const answer = await peerRef.current.createAnswer();
+  await peerRef.current.setLocalDescription(answer);
+
+  socket.emit("answer", { answer, to: from });
+});
+
+socket.on("answer", async ({ answer }) => {
+  if (peerRef.current?.signalingState !== "stable") {
+    await peerRef.current.setRemoteDescription(answer);
+  }
+});
+
 
     socket.on("ice-candidate", async ({ candidate }) => {
       await peerRef.current?.addIceCandidate(candidate);
