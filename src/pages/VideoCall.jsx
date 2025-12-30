@@ -34,7 +34,7 @@ export default function VideoCall() {
   const isMountedRef = useRef(false);
   const isMakingOfferRef = useRef(false);
   const callStartTimeRef = useRef(null);
-  
+
   // =========================
   // RESPONSIVE ROLE
   // =========================
@@ -206,11 +206,6 @@ export default function VideoCall() {
     socket.on("offer", onOffer);
     socket.on("answer", onAnswer);
     socket.on("ice-candidate", onIceCandidate);
-
-    socket.on("call-start-time", ({ startTime }) => {
-      callStartTimeRef.current = startTime;
-    });
-
     socket.on("chat-message", ({ message }) =>
       setChat(c => [...c, { self: false, text: message }])
     );
