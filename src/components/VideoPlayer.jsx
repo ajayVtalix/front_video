@@ -1,3 +1,11 @@
+// export default function VideoPlayer({ videoRef, label, muted = false }) {
+//   return (
+//     <div className="video-wrapper">
+//       <video ref={videoRef} autoPlay playsInline muted={muted} />
+//       <div className="video-label">{label}</div>
+//     </div>
+//   );
+// }
 
 
 import { useEffect, useRef } from "react";
