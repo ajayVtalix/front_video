@@ -6,17 +6,8 @@
 // });
 
 
-// import { io } from "socket.io-client";
-
-// export const socket = io("https://back-signal.onrender.com/", {
-//   autoConnect: false
-// });
-
 import { io } from "socket.io-client";
 
-export const socket = io('https://back-signal.onrender.com/', {
-  autoConnect: false,
-  reconnection: true,
-  reconnectionAttempts: Infinity
+export const socket = io("https://back-signal.onrender.com/", {
+  autoConnect: false
 });
-
